@@ -2,7 +2,7 @@
 /*
 Plugin Name: vibemap
 Plugin URI: http://wordpress.org/plugins/vibemap/
-Description: [iframe src="http://www.youtube.com/embed/oDlbBy9vfgI" width="100%" height="500"] shortcode
+Description: [vibemap src="https://vibemap.com/map?cities=chicago&latitude=41.8781136&longitude=-87.6297982&radius=5&zoom=12" width="100%" height="500"] shortcode
 Version: 1.0
 Author: vibmemap
 Author URI: https://vibemap.com
@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) { // Avoid direct calls to this file and prevent f
 	exit;
 }
 
-define('IFRAME_PLUGIN_VERSION', '1.0');
+define('VIBEMAP_PLUGIN_VERSION', '1.0');
 
-function iframe_plugin_add_shortcode_cb( $atts ) {
+function vibemap_plugin_add_shortcode_cb( $atts ) {
 	$defaults = array(
-		'src' => 'http://www.youtube.com/embed/oDlbBy9vfgI',
+		'src' => 'https://vibemap.com/map?cardStyle=list&cities=chicago&embedded=1&filters=1&latitude=41.8781136&longitude=-87.6297982&mapPos=right&radius=6.643700665145047&zoom=12',
 		'width' => '100%',
 		'height' => '500',
 		'scrolling' => 'yes',
@@ -31,7 +31,7 @@ function iframe_plugin_add_shortcode_cb( $atts ) {
 		}
 	}
 
-	$html = "\n".'<!-- iframe plugin v.'.IFRAME_PLUGIN_VERSION.' wordpress.org/plugins/iframe/ -->'."\n";
+	$html = "\n".'<!-- iframe plugin v.'.VIBEMAP_PLUGIN_VERSION.' wordpress.org/plugins/iframe/ -->'."\n";
 	$html .= '<iframe';
 	foreach( $atts as $attr => $value ) {
 		if ( strtolower($attr) == 'src' ) { // sanitize url
@@ -64,10 +64,10 @@ function iframe_plugin_add_shortcode_cb( $atts ) {
 	return $html;
 }
 
-add_shortcode( 'vibemap', 'iframe_plugin_add_shortcode_cb' );
+add_shortcode( 'vibemap', 'vibemap_plugin_add_shortcode_cb' );
 
 
-function iframe_plugin_row_meta_cb( $links, $file ) {
+function vibemap_plugin_row_meta_cb( $links, $file ) {
 	if ( $file == plugin_basename( __FILE__ ) ) {
 		$row_meta = array(
 			'support' => '<a href="https://vibemap.com" target="_blank">' . __( 'Iframe', 'iframe' ) . '</a>',
@@ -78,4 +78,4 @@ function iframe_plugin_row_meta_cb( $links, $file ) {
 	}
 	return (array) $links;
 }
-add_filter( 'plugin_row_meta', 'iframe_plugin_row_meta_cb', 10, 2 );
+add_filter( 'plugin_row_meta', 'vibemap_plugin_row_meta_cb', 10, 2 );
